@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ХимСклад Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" id="appContainer">
+        <header>
+            <div class="user-info">
+                <span id="currentUser">Гость</span>
+                <button id="logoutBtn">🚪</button>
+            </div>
+            <h1>🧪 ХимСклад Pro</h1>
+        </header>
+
+        <!-- Только для создателя -->
+        <div id="creatorPanel" class="role-panel hidden">
+            <div class="action-grid">
+                <button id="stockInBtn" class="action-btn primary">📦 Приход</button>
+                <button id="stockOutBtn" class="action-btn danger">🚚 Расход</button>
+                <button id="addUserBtn" class="action-btn">👥 Добавить агронома</button>
+            </div>
+        </div>
+
+        <!-- Дашборд для всех -->
+        <div class="dashboard">
+            <div class="stats-grid">
+                <div class="stat-card critical">
+                    <span id="criticalCount">0</span>
+                    <span>Критично</span>
+                </div>
+                <div class="stat-card">
+                    <span id="totalStock">0</span>
+                    <span>Позиций</span>
+                </div>
+            </div>
+            
+            <div class="abc-analysis">
+                <h3>ABC-анализ остатков</h3>
+                <div id="abcChart" class="chart-container"></div>
+            </div>
+        </div>
+
+        <!-- История -->
+        <div class="history-section">
+            <div class="section-header">
+                <h3>📋 Последние движения</h3>
+                <select id="filterType">
+                    <option value="all">Все</option>
+                    <option value="in">Приход</option>
+                    <option value="out">Расход</option>
+                </select>
+            </div>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    <div id="stockModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="stockForm">
+                <h3 id="modalTitle">Операция</h3>
+                <input type="text" id="itemName" placeholder="Название химии" required>
+                <input type="number" id="itemVolume" placeholder="Объем" step="0.01" required>
+                <select id="unitSelect">
+                    <option value="л">л</option>
+                    <option value="кг">кг</option>
+                </select>
+                <input type="text" id="vehicle" placeholder="Гос.номер авто">
+                <input type="date" id="operationDate">
+                <button type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
