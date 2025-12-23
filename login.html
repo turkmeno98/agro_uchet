@@ -6,22 +6,32 @@
     <title>ХимСклад Pro - Вход</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-body">
-    <div class="login-container">
-        <div class="login-card">
-            <h1>🧪 ХимСклад Pro</h1>
-            <p>Складской учет химии</p>
-            
-            <form id="loginForm">
-                <input type="text" id="username" placeholder="Логин" required>
-                <input type="password" id="password" placeholder="Пароль" required>
-                <button type="submit">Войти</button>
+<body class="dark-body">
+    <div class="login-wrapper">
+        <div class="login-panel glass-panel">
+            <div class="login-brand">
+                <span class="brand-dot"></span>
+                <span class="brand-name">ХимСклад<span class="brand-accent"> Pro</span></span>
+            </div>
+            <h2 class="login-title">Вход в систему</h2>
+            <p class="login-subtitle">Панель учета химии для агрохолдинга</p>
+
+            <form id="loginForm" class="login-form">
+                <label>Логин</label>
+                <input type="text" id="username" placeholder="Введите логин" required>
+
+                <label>Пароль</label>
+                <input type="password" id="password" placeholder="Введите пароль" required>
+
+                <button type="submit" class="btn btn-primary">Войти</button>
             </form>
-            
-            <div id="loginError" class="error hidden">Неверный логин/пароль</div>
-            
-            <div class="admin-note">
-                <small>👤 Создатель: admin / admin123</small>
+
+            <div id="loginError" class="alert alert-error hidden">
+                Неверный логин или пароль
+            </div>
+
+            <div class="login-footer">
+                <span class="role-pill">Создатель: <b>admin / admin123</b></span>
             </div>
         </div>
     </div>
