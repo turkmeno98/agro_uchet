@@ -6,73 +6,206 @@
     <title>ХимСклад Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container" id="appContainer">
-        <header>
-            <div class="user-info">
-                <span id="currentUser">Гость</span>
-                <button id="logoutBtn">🚪</button>
-            </div>
-            <h1>🧪 ХимСклад Pro</h1>
-        </header>
+<body class="dark-body">
+    <div class="layout">
 
-        <!-- Только для создателя -->
-        <div id="creatorPanel" class="role-panel hidden">
-            <div class="action-grid">
-                <button id="stockInBtn" class="action-btn primary">📦 Приход</button>
-                <button id="stockOutBtn" class="action-btn danger">🚚 Расход</button>
-                <button id="addUserBtn" class="action-btn">👥 Добавить агронома</button>
+        <!-- Боковое меню -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="brand-dot"></span>
+                <span class="brand-name">ХимСклад<span class="brand-accent"> Pro</span></span>
             </div>
-        </div>
 
-        <!-- Дашборд для всех -->
-        <div class="dashboard">
-            <div class="stats-grid">
-                <div class="stat-card critical">
-                    <span id="criticalCount">0</span>
-                    <span>Критично</span>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item nav-item-active" data-section="overview">
+                    <span class="nav-icon">🏠</span>
+                    <span>Обзор</span>
+                </a>
+                <a href="#" class="nav-item" data-section="stock">
+                    <span class="nav-icon">🧪</span>
+                    <span>Склад</span>
+                </a>
+                <a href="#" class="nav-item" data-section="history">
+                    <span class="nav-icon">📋</span>
+                    <span>История</span>
+                </a>
+                <a href="#" class="nav-item" data-section="users">
+                    <span class="nav-icon">👥</span>
+                    <span>Пользователи</span>
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Настройки</span>
+                </a>
+            </nav>
+
+            <button id="logoutBtn" class="nav-item nav-logout">
+                <span class="nav-icon">🚪</span>
+                <span>Выход</span>
+            </button>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="main">
+
+            <!-- Верхняя панель -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="page-title">Обзор склада</h1>
                 </div>
-                <div class="stat-card">
-                    <span id="totalStock">0</span>
-                    <span>Позиций</span>
+                <div class="topbar-right">
+                    <div class="topbar-user">
+                        <div class="user-avatar">Х</div>
+                        <div>
+                            <div id="currentUser" class="user-name">Пользователь</div>
+                            <div id="currentRole" class="user-role">Роль</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="abc-analysis">
-                <h3>ABC-анализ остатков</h3>
-                <div id="abcChart" class="chart-container"></div>
-            </div>
-        </div>
+            </header>
 
-        <!-- История -->
-        <div class="history-section">
-            <div class="section-header">
-                <h3>📋 Последние движения</h3>
-                <select id="filterType">
-                    <option value="all">Все</option>
-                    <option value="in">Приход</option>
-                    <option value="out">Расход</option>
-                </select>
-            </div>
-            <div id="historyList"></div>
-        </div>
+            <!-- Секция Обзор -->
+            <section id="section-overview" class="section active-section">
+                <div class="grid-3">
+                    <div class="card stat-card">
+                        <div class="stat-label">Всего позиций</div>
+                        <div id="totalStock" class="stat-value">0</div>
+                        <div class="stat-hint">Учитываются все единицы химии</div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-label">Критично низких</div>
+                        <div id="criticalCount" class="stat-value stat-critical">0</div>
+                        <div class="stat-hint">Ниже заданного порога уровня</div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-label">Движений за 7 дней</div>
+                        <div id="recentOps" class="stat-value">0</div>
+                        <div class="stat-hint">Приход + расход</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span>ABC-анализ остатков</span>
+                        </div>
+                        <canvas id="abcChart"></canvas>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span>Последние движения</span>
+                            <select id="filterType" class="select-dark">
+                                <option value="all">Все</option>
+                                <option value="приход">Приход</option>
+                                <option value="расход">Расход</option>
+                            </select>
+                        </div>
+                        <div id="historyList" class="list list-history"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Секция Склад -->
+            <section id="section-stock" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <span>Текущие остатки</span>
+                        <span class="card-header-note">Нажми по строке для деталей</span>
+                    </div>
+                    <div id="stockTable" class="table stocks-table"></div>
+                </div>
+            </section>
+
+            <!-- Секция История -->
+            <section id="section-history" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <span>Вся история движений</span>
+                    </div>
+                    <div id="historyFull" class="list list-history"></div>
+                </div>
+            </section>
+
+            <!-- Секция Пользователи (видна только создателю) -->
+            <section id="section-users" class="section">
+                <div class="card" id="creatorPanel">
+                    <div class="card-header">
+                        <span>Управление пользователями</span>
+                    </div>
+                    <div class="user-manage">
+                        <form id="addUserForm" class="form-inline">
+                            <input type="text" id="newUserName" placeholder="Логин агронома">
+                            <input type="text" id="newUserPass" placeholder="Пароль">
+                            <button type="submit" class="btn btn-primary">+ Добавить</button>
+                        </form>
+                        <div id="userList" class="list list-users"></div>
+                    </div>
+                </div>
+                <div class="card card-muted" id="usersReadonlyNote">
+                    Только создатель может управлять пользователями.
+                </div>
+            </section>
+
+            <!-- Секция Настройки -->
+            <section id="section-settings" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <span>Настройки склада</span>
+                    </div>
+                    <div class="settings-grid">
+                        <div>
+                            <label>Порог критического остатка (л/кг)</label>
+                            <input type="number" id="criticalThreshold" class="input-dark" value="50">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
     </div>
 
-    <!-- Модальные окна -->
+    <!-- Модалка операции -->
     <div id="stockModal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id="stockForm">
-                <h3 id="modalTitle">Операция</h3>
-                <input type="text" id="itemName" placeholder="Название химии" required>
-                <input type="number" id="itemVolume" placeholder="Объем" step="0.01" required>
-                <select id="unitSelect">
-                    <option value="л">л</option>
-                    <option value="кг">кг</option>
-                </select>
-                <input type="text" id="vehicle" placeholder="Гос.номер авто">
-                <input type="date" id="operationDate">
-                <button type="submit">Сохранить</button>
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <span id="modalTitle">Операция</span>
+                <span class="modal-close" id="modalClose">✕</span>
+            </div>
+            <form id="stockForm" class="modal-body">
+                <div class="grid-2">
+                    <div>
+                        <label>Название химии</label>
+                        <input type="text" id="itemName" class="input-dark" required>
+                    </div>
+                    <div>
+                        <label>Ед. изм.</label>
+                        <select id="unitSelect" class="input-dark">
+                            <option value="л">л</option>
+                            <option value="кг">кг</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Объем</label>
+                        <input type="number" id="itemVolume" class="input-dark" step="0.01" required>
+                    </div>
+                    <div>
+                        <label>Дата</label>
+                        <input type="date" id="operationDate" class="input-dark">
+                    </div>
+                </div>
+
+                <div>
+                    <label>Авто (гос. номер)</label>
+                    <input type="text" id="vehicle" class="input-dark" placeholder="Например, А123ВС34">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
             </form>
         </div>
     </div>
