@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ХимСклад Pro - Вход</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-card">
+            <h1>🧪 ХимСклад Pro</h1>
+            <p>Складской учет химии</p>
+            
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Логин" required>
+                <input type="password" id="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+            
+            <div id="loginError" class="error hidden">Неверный логин/пароль</div>
+            
+            <div class="admin-note">
+                <small>👤 Создатель: admin / admin123</small>
+            </div>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
